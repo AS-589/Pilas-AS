@@ -4,10 +4,9 @@ const express = require("express");
 
 const app = express();
 const server = http.createServer(app);
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://pilas-as.vercel.app/',
-];
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',')
+  : ['http://localhost:5173', 'https://pilas-as.vercel.app'];
 
 const io = new Server(server, {
   cors: {
@@ -20,6 +19,7 @@ const io = new Server(server, {
     },
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
   },
 });
 
