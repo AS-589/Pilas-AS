@@ -4,11 +4,23 @@ const express = require("express");
 
 const app = express();
 const server = http.createServer(app);
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://pilas-as.vercel.app/',
+];
+
 const io = new Server(server, {
-    cors: {
-        origin: "https://pilas-as.vercel.app",
-        method: ["GET", "POST", "PATCH", "DELETE"],
+  cors: {
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
     },
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    credentials: true,
+  },
 });
 
 
