@@ -1,0 +1,25 @@
+const express = require("express")
+const {connect} = require("mongoose")
+require("dotenv").config()
+const cors = require("cors")
+const upload = require("express-fileupload")
+const userRoutes = require('./routes/userRoutes')
+const { notFound, errorHandler } = require("./middlewares/errorMiddleware")
+const { server, app } = require("./socket/socket")
+
+
+app.use(express.urlencoded({extended: true}))
+app.use(express.json({extended: true}))
+app.use(cors({origin: 'http://localhost:5173', credentials: true }))
+app.use(upload())
+
+
+app.use('/api', userRoutes)
+
+
+app.use(errorHandler);
+app.use(notFound);
+
+
+connect(process.env.MONGO_URL).then(server.listen(process.env.PORT, () => console.log(`Server started on port ${process.env.PORT}`))).catch(err => console.log(err))
+
