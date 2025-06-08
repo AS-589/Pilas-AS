@@ -7,10 +7,9 @@ const userRoutes = require('./routes/userRoutes')
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware")
 const { server, app } = require("./socket/socket")
 
-const allowedOrigins = [
-  'http://localhost:5173', 
-  'https://pilas-as.vercel.app', 
-];
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',')
+  : ['http://localhost:5173', 'https://pilas-as.vercel.app'];
 
 app.use(
   cors({
@@ -21,7 +20,9 @@ app.use(
         callback(new Error('Not allowed by CORS'));
       }
     },
-    credentials: true,
+   credentials: true,
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
