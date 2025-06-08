@@ -6,7 +6,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "https://pilas-as.vercel.app/",
+        origin: "https://pilas-as.vercel.app",
         method: ["GET", "POST", "PATCH", "DELETE"],
     },
 });
