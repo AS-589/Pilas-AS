@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CreatePost from '../components/CreatePost';
 import axios from 'axios';
-import Feeds from '../components/Feeds';
-import Feed from '../components/Feed';
 import Posts from '../components/Feeds';
 import { postSliceActions } from '../store/post-slice';
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
+  const posts = useSelector(state => state.posts.posts);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const token = useSelector(state => state?.user?.currentUser?.token);
@@ -17,46 +15,45 @@ const Home = () => {
   const createPost = async (data) => {
     setError('');
     try {
-    const { data: newPost } = await axios.post(`${import.meta.env.VITE_API_URL}/posts`, data, {
-        withCredentials: true, 
-        headers: {Authorization: `Bearer ${token}`}})
-      
-      setPosts([newPost, ...posts])
+      const { data: newPost } = await axios.post(`${import.meta.env.VITE_API_URL}/posts`, data, {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${token}` },
+      });
       dispatch(postSliceActions.createPost(newPost));
     } catch (err) {
-     setError(err?.response?.data?.message)
+      setError(err?.response?.data?.message || 'Erreur lors de la création du post');
     }
   };
 
-  const getPosts = async (data) => {
+  const getPosts = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/posts`, {
-        withCredentials: true, 
-        headers: {Authorization: `Bearer ${token}`}})
-      setPosts(response?.data);
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/posts`, {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log('Posts initiaux chargés:', data);
       dispatch(postSliceActions.getPosts(data));
-      isLoading(false)
     } catch (err) {
-      console.log(err)
+      console.error('Erreur chargement posts:', err.response?.data || err.message);
+      setError('Erreur lors du chargement des posts');
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    getPosts()
-  }, [setPosts])
+    if (token && !posts.length) getPosts();
+  }, [token, posts.length]);
 
   return (
     <section className="mainArea">
-      <CreatePost onCreatePost={createPost} error={error}/>Add commentMore actions
+      <CreatePost onCreatePost={createPost} error={error} />
       {posts.length > 0 ? (
         <Posts posts={posts} />
-      ) : ( 
-        posts.map(post => <Feed key={post.id} post={post} onSetPosts={setPosts}/>)
+      ) : (
+        <p className="center">Ningun evento registrado</p>
       )}
-      //<Feeds posts={posts} onSetPosts={setPosts}/>
     </section>
   );
 };
