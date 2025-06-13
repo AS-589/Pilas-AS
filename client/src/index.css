@@ -72,7 +72,8 @@
   padding: 0;
   border: 0;
   outline: 0;
-  appearance: 0;
+  appearance: none;
+  -webkit-appearance: none;
   list-style: none;
   text-decoration: none;
   box-sizing: border-box;
@@ -83,7 +84,7 @@
 }
 
 html {
-  font-size: 12px;
+  font-size: 1rem;
 }
 
 body {
@@ -201,7 +202,7 @@ button {
 .register {
   display: grid;
   place-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .register__container {
@@ -290,6 +291,7 @@ button {
   display: grid;
   place-items: center;
   height: 5rem;
+  width: 1fr;
   position: fixed;
   top: 0;
   left: 0;
@@ -992,6 +994,7 @@ SUGGESTED FRIENDS
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   height: 100vh;
   width: 100vw;
@@ -1279,6 +1282,7 @@ SUGGESTED FRIENDS
   bottom: 0;
   border-radius: var(--radius-2);
   background: var(--color-gray-200);
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
 
@@ -1309,9 +1313,14 @@ SUGGESTED FRIENDS
 
 
 /*==============MEDIA QUERIES==========*/
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 600px) {
   .container {
     width: var(--container-w-sm);
+  }
+
+  .register__container .navbar {
+    width: 100%;
+    padding: 1rem;
   }
 
   .widgets {
@@ -1322,9 +1331,7 @@ SUGGESTED FRIENDS
     grid-template-columns: 1fr;
   }
 
-  .navbar__search {
-    display: none;
-  }
+
 
   .sidebar {
     position: fixed;
