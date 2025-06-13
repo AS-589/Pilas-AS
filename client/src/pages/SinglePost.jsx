@@ -45,18 +45,25 @@ const SinglePost = () => {
       }
     }
 
-    const createComment = async () => {
-      try {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/comments/${id}`, {comment}, {
-          withCredentials: true,
-          headers: {Authorization: `Bearer ${token}`}
-        })
-        const newComment = response?.data;
-        setComment([newComment, ...comment])
-      } catch (error) {
-        console.log(error)
+    const createComment = async (e) => {
+  e.preventDefault(); 
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/comments/${id}`,
+      { comment },
+      {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${token}` }
       }
-    }
+    );
+    const newComment = response?.data;
+    setComments([newComment, ...comments]); 
+    setComment(''); 
+  } catch (error) {
+    console.log(error);
+    
+  }
+};
 
     useEffect(() => {
       getPost();
@@ -91,7 +98,7 @@ const SinglePost = () => {
           <textarea 
           placeholder='Coménta algo...' 
           value={comment}
-          onChange={e => setComment(e.target.value)} />
+          onChange={(e) => setComment(e.target.value)} />
           <button type='submit' className='singlePost__comments-btn'>
             <IoMdSend />
           </button>

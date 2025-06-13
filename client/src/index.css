@@ -285,6 +285,7 @@ button {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
   box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   border-bottom: 0.2rem solid var(--color-gray-100);
   z-index: 3;
@@ -1181,7 +1182,7 @@ SUGGESTED FRIENDS
   padding: 1rem;
   border-radius: var(--radius-2);
   height: 10rem;
-  width: 200%;
+  width: 150%;
   color: var(--color-gray-900);
   justify-self: center;
 }
@@ -1191,12 +1192,12 @@ SUGGESTED FRIENDS
   margin: 1rem;
   padding: .3rem;
   display: block;
-  width: 200%;
+  width: 150%;
   justify-self: center;
 }
 
 .editPost button {
-  width: 80%;
+  width: 100%;
   justify-self: center;
 }
 
@@ -1320,13 +1321,9 @@ SUGGESTED FRIENDS
     grid-template-columns: 1fr;
   }
 
-  .navbar__search {
-    display: none;
-  }
-
   .sidebar {
     position: fixed;
-    top: 90%;
+    top: 86%;
     left: 50%;
     transform: translateX(-50%);
     height: 5rem;

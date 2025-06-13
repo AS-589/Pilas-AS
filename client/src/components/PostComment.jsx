@@ -25,7 +25,12 @@ const PostComment = ({comment, onDeleteComment}) => {
             </div>
             <p>{comment?.comment}</p>
         </div>
-        {userId == comment?.creator?.creatorId &&  <button className='singlePost__comment-delete-btn' onClick={deleteComment}><FaRegTrashAlt /></button>}
+        {userId == comment?.creator?.creatorId &&  
+        <button 
+        className='singlePost__comment-delete-btn' 
+        onClick={deleteComment}>
+            <FaRegTrashAlt />
+        </button>}
     </li>
   )
 }
