@@ -57,15 +57,6 @@
   --color-primary-variant: rgba(245, 216, 100, 0.2);
 }
 
-.green {
-  --color-primary: #90caa7;
-  --color-primary-variant: rgba(144, 202, 167, 0.2);
-}
-
-.purple {
-  --color-primary: #c19eec;
-  --color-primary-variant: rgba(193, 158, 236, 0.2);
-}
 
 * {
   margin: 0;
@@ -291,11 +282,9 @@ button {
   display: grid;
   place-items: center;
   height: 5rem;
-  width: 1fr;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
   box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   border-bottom: 0.2rem solid var(--color-gray-100);
   z-index: 3;
@@ -1331,7 +1320,9 @@ SUGGESTED FRIENDS
     grid-template-columns: 1fr;
   }
 
-
+  .navbar__search {
+    display: none;
+  }
 
   .sidebar {
     position: fixed;
