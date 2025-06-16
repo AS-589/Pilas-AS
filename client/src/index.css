@@ -285,7 +285,7 @@ button {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   border-bottom: 0.2rem solid var(--color-gray-100);
   z-index: 3;
